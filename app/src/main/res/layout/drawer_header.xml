@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@drawable/mygradient"
+    android:layout_height="170dp">
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_person_black_24dp"
+      android:fontFamily="@font/audiowide"
+      android:tint="#FFFFFF"
+      android:id="@+id/userImage"
+      android:layout_centerHorizontal="true"
+      />
+    <TextView
+      android:layout_width="wrap_content"
+        android:fontFamily="@font/audiowide"
+      android:layout_height="wrap_content"
+      android:text="DHANU PRIYAM M"
+      android:textColor="#fff"
+      android:id="@+id/username"
+        android:layout_below="@id/userImage"
+      android:layout_centerHorizontal="true"
+      android:textSize="20dp"
+      android:textAlignment="center"
+      />
+    <TextView
+    android:layout_width="wrap_content"
+        android:fontFamily="@font/audiowide"
+    android:layout_height="wrap_content"
+    android:text="18mx102"
+    android:textColor="#fff"
+    android:textSize="20dp"
+        android:id="@+id/userRollNo"
+        android:layout_below="@id/username"
+    android:layout_marginTop="5dp"
+       android:layout_centerHorizontal="true"
+
+    />
+
+</RelativeLayout>

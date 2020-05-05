@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@drawable/mygradient"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/ccText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/audiowide"
+        android:text="mca cc lab"
+        android:textAllCaps="true"
+        android:textColor="#270E0E"
+        android:textSize="40dp"
+
+        android:textStyle="bold" />
+
+
+
+    <EditText
+        android:id="@+id/rollno"
+        android:layout_width="250dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/audiowide"
+        android:layout_below="@id/ccText"
+        android:hint="Roll No"
+        android:inputType="text" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        android:hint="Password"
+        android:layout_below="@id/rollno"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/audiowide"
+        android:inputType="textPassword"
+        android:id="@+id/password"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/login"
+        android:fontFamily="@font/audiowide"
+        android:layout_below="@id/password"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Haven't yet registered ?"
+        android:id="@+id/forRegistration"
+        android:layout_below="@+id/login"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#ffffff"
+
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/mygradient"
+    android:layout_height="match_parent"
+    tools:context=".Registration">
+
+
+    <TextView
+        android:id="@+id/ccText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/audiowide"
+        android:text="mca cc lab"
+        android:textAllCaps="true"
+
+        android:textColor="#000000"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/registerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ccText"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/audiowide"
+        android:text="User Registration"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Name"
+        android:layout_below="@id/registerText"
+        android:layout_width="250dp"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/audiowide"
+        android:textColorHint="#ffffff"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:hint="Name"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/RollNo"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/audiowide"
+        android:layout_marginTop="5dp"
+        android:hint="Roll No"
+        android:layout_below="@id/Name"
+        android:inputType="text" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:layout_marginTop="5dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/audiowide"
+        android:layout_below="@id/RollNo"
+        android:inputType="textPassword"
+        android:id="@+id/password"
+        />
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:hint="Confirm Password"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
+        android:layout_below="@id/password"
+        android:fontFamily="@font/audiowide"
+        android:inputType="textPassword"
+        android:id="@+id/confirm"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Register"
+        android:id="@+id/register"
+        android:fontFamily="@font/audiowide"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/confirm"
+        />
+
+
+
+
+
+</RelativeLayout>

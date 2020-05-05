@@ -1,0 +1,2 @@
+rootProject.name='MXCC'
+include ':app'

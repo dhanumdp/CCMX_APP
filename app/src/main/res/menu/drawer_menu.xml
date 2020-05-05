@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    >
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home_black_24dp"
+        
+        android:title="Home" />
+
+    <item
+        android:id="@+id/attendance"
+        android:icon="@drawable/ic_check_circle_black_24dp"
+        android:title="Attendance" />
+    <item
+        android:id="@+id/complaint"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="Complaint" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="Logout" />
+</menu>
