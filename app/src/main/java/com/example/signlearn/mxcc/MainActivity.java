@@ -70,7 +70,23 @@ public class MainActivity extends AppCompatActivity {
         sp=getApplicationContext().getSharedPreferences("SharedData", MODE_PRIVATE);
         spedit = sp.edit();
 
+//        if(!sp.contains("Username") && ! sp.contains("Password"))
+//        {
+//            Toast.makeText(MainActivity.this, "New User", Toast.LENGTH_SHORT).show();
+//        }
+         if(sp.contains("Username") &&  sp.contains("Password"))
+        {
+            startActivity(new Intent(MainActivity.this, CardView.class));
+        }
+
         listener();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        //  Toast.makeText(CardView.this, "Press Logout", Toast.LENGTH_LONG).show();
+        this.moveTaskToBack(true);
     }
 
     public void listener()
@@ -122,9 +138,14 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(MainActivity.this,Registration.class));
+                rollno.setText("");
+                password.setText("");
             }
         });
+
+
     }
 
 

@@ -2,6 +2,7 @@ package com.example.signlearn.mxcc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -9,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -46,6 +48,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     String formatedDate = dateFormat.format(date);
     String formagedTime = timeFormat.format(date);
     SharedPreferences sp;
+    SharedPreferences.Editor spedit;
     View header;
         DrawerLayout drawerLayout;
         ActionBarDrawerToggle actionBarDrawerToggle;
@@ -89,7 +92,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         userRollNo=(TextView)header.findViewById(R.id.userRollNo);
 
         sp=getApplicationContext().getSharedPreferences("SharedData", MODE_PRIVATE);
-
+        spedit = sp.edit();
 
         //backendAPI
         Retrofit retrofitClient = RetrofitClient.getInstance();
@@ -103,7 +106,8 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public void onBackPressed()
     {
-        Toast.makeText(CardView.this, "Press Logout", Toast.LENGTH_LONG).show();
+      //  Toast.makeText(CardView.this, "Press Logout", Toast.LENGTH_LONG).show();
+        this.moveTaskToBack(true);
     }
 
 
@@ -111,11 +115,12 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+
 
 
         if(item.getItemId() == R.id.home)
         {
+            drawerLayout.closeDrawer(GravityCompat.START);
             fragmentManager= getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, new MainFragment());
@@ -125,6 +130,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
 
         if(item.getItemId() == R.id.attendance)
         {
+            drawerLayout.closeDrawer(GravityCompat.START);
             fragmentManager= getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, new Attendance());
@@ -133,6 +139,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         }
         if(item.getItemId()== R.id.complaint)
         {
+            drawerLayout.closeDrawer(GravityCompat.START);
             fragmentManager= getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, new Complaint());
@@ -141,7 +148,22 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         }
         if(item.getItemId()==R.id.logout)
         {
-            startActivity(new Intent(CardView.this, MainActivity.class));
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Confirm");
+            builder.setMessage("Are you sure want to Logout ?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    spedit.clear();
+                    spedit.commit();
+                    startActivity(new Intent(CardView.this, MainActivity.class));
+                }
+            });
+            builder.setNegativeButton("No", null);
+            builder.show();
+
         }
 
 
