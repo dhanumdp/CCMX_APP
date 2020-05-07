@@ -16,9 +16,11 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +64,8 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
                  CompositeDisposable cd = new CompositeDisposable();
                  NodeJS node;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +102,10 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         Retrofit retrofitClient = RetrofitClient.getInstance();
         node = retrofitClient.create(NodeJS.class);
 
-            loadUser();
+
+
+
+        loadUser();
 
 
     }
@@ -106,7 +113,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public void onBackPressed()
     {
-      //  Toast.makeText(CardView.this, "Press Logout", Toast.LENGTH_LONG).show();
+
         this.moveTaskToBack(true);
     }
 
@@ -161,7 +168,13 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
                     startActivity(new Intent(CardView.this, MainActivity.class));
                 }
             });
-            builder.setNegativeButton("No", null);
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+
+                }
+            });
             builder.show();
 
         }
@@ -188,6 +201,8 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
                     }
                 }));
     }
+
+
 
 //    public void listner()
 //{

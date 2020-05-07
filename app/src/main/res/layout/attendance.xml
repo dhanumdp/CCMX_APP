@@ -1,18 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/attendanceLayout"
     android:layout_height="match_parent"
-    android:gravity="center">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="Attendance"
+        android:text=""
+        android:layout_marginTop="140dp"
+        android:id="@+id/attendanceDate"
+        android:layout_centerHorizontal="true"
         android:fontFamily="@font/audiowide"
         android:textColor="@color/Transparent"
         />
+    <androidx.cardview.widget.CardView
+        android:layout_below="@id/attendanceDate"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/attendanceCard"
+        app:cardBackgroundColor="@color/Transparent"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+        <TextView
+            android:id="@+id/checkin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:layout_marginTop="65dp"
+            android:layout_marginStart="50dp"
+            android:fontFamily="@font/audiowide"
+            android:text="Check In     :"
+            android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/checkinText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="65dp"
+                android:layout_toRightOf="@id/checkin"
+                android:fontFamily="@font/audiowide"
+                android:text=" "
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/checkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:layout_below="@id/checkin"
+            android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/audiowide"
+                android:text="Check Out  :"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/checkoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:layout_marginLeft="6dp"
+                android:layout_below="@id/checkinText"
+                android:layout_toRightOf="@id/checkout"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/audiowide"
+                android:text=" "
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Reason for Using Lab"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/attendanceCard"
+       android:id="@+id/reason"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Make Entry"
+        android:layout_below="@id/reason"
+        android:id="@+id/btnAttendance"
+        android:textColor="@color/Transparent"
+        android:fontFamily="@font/audiowide"
+        />
+
 
 </RelativeLayout>

@@ -19,5 +19,15 @@ public interface NodeJS {
     @FormUrlEncoded
     Observable<String> getStudentDetails(@Field("Roll_No") String Roll_No);
 
+    @POST("/student/getAttendance")
+    @FormUrlEncoded
+    Observable<String> getAttendance( @Field("date") String dateNow, @Field("rollno") String rollno);
+
+    @POST("/student/putAttendance")
+    @FormUrlEncoded
+    Observable<String> putAttendance( @Field("date") String dateNow, @Field("rollno") String rollno,@Field("reason") String reason, @Field("time") String timeNow);
+
+
+
 
 }
