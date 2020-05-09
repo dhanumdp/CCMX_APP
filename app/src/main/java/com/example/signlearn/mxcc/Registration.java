@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class Registration extends AppCompatActivity {
-    EditText name,rollno,password,confirm;
+    EditText name,rollno,password,email,confirm;
     Button register;
     CompositeDisposable cd = new CompositeDisposable();
     NodeJS node;
@@ -36,7 +36,7 @@ public class Registration extends AppCompatActivity {
 
         name= (EditText)findViewById(R.id.Name);
         rollno = (EditText)findViewById(R.id.RollNo);
-
+        email = (EditText)findViewById(R.id.Email);
         password = (EditText)findViewById(R.id.password);
         confirm = (EditText)findViewById(R.id.confirm);
         register =(Button)findViewById(R.id.register);
@@ -51,6 +51,7 @@ public class Registration extends AppCompatActivity {
                 String sname,srollno,semail,spassword,sconfirm;
                 sname=name.getText().toString();
                 srollno=rollno.getText().toString();
+                semail = email.getText().toString().toLowerCase();
                 spassword=password.getText().toString();
                 sconfirm=confirm.getText().toString();
 
@@ -62,6 +63,10 @@ public class Registration extends AppCompatActivity {
                 else if(srollno.isEmpty()) {
                     rollno.setError("Please Enter Your Roll No !!");
                     rollno.requestFocus();
+                }
+                else if(semail.isEmpty()) {
+                    email.setError("Please Enter Your Email-Id!!");
+                    email.requestFocus();
                 }
                 else if (spassword.isEmpty())
                 {
@@ -81,7 +86,7 @@ public class Registration extends AppCompatActivity {
                 else
                 {
 
-                    cd.add(node.studentRegister(sname,srollno,sconfirm)
+                    cd.add(node.studentRegister(sname,srollno,semail,sconfirm)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Consumer<String>() {
@@ -91,6 +96,7 @@ public class Registration extends AppCompatActivity {
                                 }
                             }));
                     startActivity(new Intent(Registration.this,MainActivity.class));
+
 
 
 

@@ -1,5 +1,7 @@
 package com.example.signlearn.mxcc;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.media.AudioAttributesCompat;
 
 import com.example.signlearn.mxcc.Retrofit.NodeJS;
 import com.example.signlearn.mxcc.Retrofit.RetrofitClient;
@@ -38,7 +42,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class Attendance<Callbacks> extends Fragment  {
+public class Attendance <Callbacks> extends Fragment  {
 
     TextView checkin, checkout, dateOf;
     EditText reason;
@@ -46,15 +50,20 @@ public class Attendance<Callbacks> extends Fragment  {
     CompositeDisposable cd = new CompositeDisposable();
     NodeJS node;
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    DateFormat timeFormat = new SimpleDateFormat("HH:mm aa" );
+    DateFormat timeFormat = new SimpleDateFormat("hh:mm aa" );
     Date date = new Date();
     String formatedDate = dateFormat.format(date);
     String formagedTime = timeFormat.format(date);
+    ProgressDialog progressDialog;
+
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
     SharedPreferences sp;
+
+
+
 
 
     @Nullable
@@ -69,15 +78,16 @@ public class Attendance<Callbacks> extends Fragment  {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-         checkin = (TextView) view.findViewById(R.id.checkinText);
-         checkout = (TextView)view.findViewById(R.id.checkoutText);
-         dateOf = (TextView)view.findViewById(R.id.attendanceDate);
-       reason = (EditText)view.findViewById(R.id.reason);
-         dateOf.setText(formatedDate);
-         make = (Button)view.findViewById(R.id.btnAttendance);
+        checkin = (TextView) view.findViewById(R.id.checkinText);
+        checkout = (TextView)view.findViewById(R.id.checkoutText);
+        dateOf = (TextView)view.findViewById(R.id.attendanceDate);
+        reason = (EditText)view.findViewById(R.id.reason);
+        dateOf.setText(formatedDate);
+        make = (Button)view.findViewById(R.id.btnAttendance);
         Retrofit retrofitClient = RetrofitClient.getInstance();
         node = retrofitClient.create(NodeJS.class);
         sp=getContext().getSharedPreferences("SharedData", Context.MODE_PRIVATE);
+        make.setEnabled(true);
 
         loadAttendance();
 
@@ -92,8 +102,9 @@ public class Attendance<Callbacks> extends Fragment  {
 
     public void loadAttendance()
     {
+
         final  String username = sp.getString("Username", null).toUpperCase();
-                 cd.add(node.getAttendance(formatedDate,username)
+        cd.add(node.getAttendance(formatedDate,username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
@@ -121,7 +132,7 @@ public class Attendance<Callbacks> extends Fragment  {
     }
 
 
-   public void putAttendance()
+    public void putAttendance()
     {
         final  String username = sp.getString("Username", null).toUpperCase();
         final String reasonText = reason.getText().toString();
@@ -141,31 +152,36 @@ public class Attendance<Callbacks> extends Fragment  {
                             if(checkin.getText()=="" && checkout.getText()=="")
                             {
                                 checkin.setText(formagedTime);
+                                Toast.makeText(getContext(), "Checked In Successfully. Use your Time effectively on this lab", Toast.LENGTH_SHORT).show();
                                 reason.setText(reasonText);
                                 reason.setEnabled(false);
-
 
                             }
                             else
                             {
                                 reason.setEnabled(false);
                                 checkout.setText(formagedTime);
-
+                                Toast.makeText(getContext(), "Checked Out Successfully. Please Come again and Work.", Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     }));
             loadAttendance();
+            make.setEnabled(false);
+            make.requestFocus();
+
+
         }
+
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
+
         super.onAttach(context);
 
+
     }
-
-
 
 
 }

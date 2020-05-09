@@ -4,22 +4,58 @@
 
     >
 
-    <item
-        android:id="@+id/home"
-        android:icon="@drawable/ic_home_black_24dp"
-        
-        android:title="Home" />
 
-    <item
-        android:id="@+id/attendance"
-        android:icon="@drawable/ic_check_circle_black_24dp"
-        android:title="Attendance" />
-    <item
-        android:id="@+id/complaint"
-        android:icon="@drawable/ic_edit_black_24dp"
-        android:title="Complaint" />
-    <item
-        android:id="@+id/logout"
-        android:icon="@drawable/ic_exit_to_app_black_24dp"
-        android:title="Logout" />
+
+    <item android:title="Attendance">
+
+        <menu>
+
+            <item
+                android:id="@+id/attendance"
+                android:icon="@drawable/ic_check_circle_black_24dp"
+                android:title="Attendance Entry" />
+        </menu>
+
+    </item>
+
+
+
+
+  <item android:title="Complaint">
+
+      <menu>
+
+          <item
+              android:id="@+id/viewComplaint"
+              android:icon="@drawable/ic_remove_red_eye_black_24dp"
+              android:title="View Complaints" />
+
+          <item
+              android:id="@+id/addComplaint"
+              android:icon="@drawable/ic_edit_black_24dp"
+              android:title="Add Complaint" />
+
+
+      </menu>
+
+  </item>
+
+    <item android:title="MXCC">
+
+        <menu>
+
+            <item
+                android:id="@+id/home"
+                android:icon="@drawable/ic_home_black_24dp"
+
+                android:title="Home" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="Logout" />
+        </menu>
+
+    </item>
+
+
 </menu>

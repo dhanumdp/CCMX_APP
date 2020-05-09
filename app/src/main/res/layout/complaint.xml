@@ -1,19 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    >
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="Complaint"
+        android:text=""
+        android:layout_marginTop="140dp"
+        android:id="@+id/complaintDate"
+        android:layout_centerHorizontal="true"
         android:fontFamily="@font/audiowide"
         android:textColor="@color/Transparent"
         />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/complaintDate"
+        android:id="@+id/complaintCard"
+        app:cardBackgroundColor="@color/Transparent"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginTop="10dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/systemNoEdit"
+                android:layout_marginStart="50dp"
+                android:fontFamily="@font/audiowide"
+                android:textSize="20dp"
+                android:textColor="#fff"
+
+                android:layout_marginBottom="10dp"
+                android:hint="System No : "
+
+                />
+
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/audiowide"
+                android:textSize="20dp"
+                android:layout_marginStart="50dp"
+                android:textColor="#fff"
+                android:id="@+id/complaintTextEdit"
+                android:layout_marginBottom="10dp"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:minLines="1"
+                android:scrollbars="vertical"
+                android:layout_below="@id/systemNoEdit"
+                android:hint="Complaint : "
+                />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Add Complaint"
+        android:layout_below="@id/complaintCard"
+        android:id="@+id/btnComplaint"
+        android:textColor="@color/Transparent"
+        android:fontFamily="@font/audiowide"
+        />
+
+
 
 </RelativeLayout>

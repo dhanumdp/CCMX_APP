@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -122,9 +123,6 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
-
-
         if(item.getItemId() == R.id.home)
         {
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -142,9 +140,18 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
             fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, new Attendance());
             fragmentTransaction.commit();
+            final LoadingDiolog loadingDiolog = new LoadingDiolog(CardView.this);
+            loadingDiolog.startLoadingDiolog();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDiolog.dismissDiolog();
+                }
+            },1000);
             setTitle(item.getTitle().toString().toUpperCase());
         }
-        if(item.getItemId()== R.id.complaint)
+        if(item.getItemId()== R.id.addComplaint)
         {
             drawerLayout.closeDrawer(GravityCompat.START);
             fragmentManager= getSupportFragmentManager();
@@ -153,6 +160,27 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
             fragmentTransaction.commit();
             setTitle(item.getTitle().toString().toUpperCase());
         }
+
+        if(item.getItemId()== R.id.viewComplaint)
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            fragmentManager= getSupportFragmentManager();
+            fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new ViewComplaint());
+            fragmentTransaction.commit();
+            final LoadingDiolog loadingDiolog = new LoadingDiolog(CardView.this);
+            loadingDiolog.startLoadingDiolog();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDiolog.dismissDiolog();
+                }
+            },1000);
+            setTitle(item.getTitle().toString().toUpperCase());
+        }
+
+
         if(item.getItemId()==R.id.logout)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

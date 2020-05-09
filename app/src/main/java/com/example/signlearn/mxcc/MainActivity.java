@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +28,11 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView register;
+    TextView register,forgot;
     EditText rollno,password;
     Button login;
     CompositeDisposable cd = new CompositeDisposable();
+    LoadingDiolog loadingDiolog = new LoadingDiolog(MainActivity.this);
     NodeJS node;
 
     //for session handling, here i use shared preferences
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         rollno=(EditText)findViewById(R.id.rollno);
         password=(EditText)findViewById(R.id.password);
         register = (TextView)findViewById(R.id.forRegistration);
+        forgot = (TextView)findViewById(R.id.forgotPasswordTxt);
         login=(Button)findViewById(R.id.login);
 
 
@@ -109,26 +112,37 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                   cd.add(node.studentLogin(roll,pass)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread())
-                   .subscribe(new Consumer<String>() {
-                       @Override
-                       public void accept(String response) throws Exception {
-                          String res= response;
-                          if(res.equals("Success"))
-                          {
-                                spedit.putString("Username", roll);
-                                spedit.putString("Password", pass);
 
-                                spedit.commit();
+                   loadingDiolog.startLoadingDiolog();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDiolog.dismissDiolog();
 
-                              startActivity(new Intent(MainActivity.this, CardView.class));
-                          }
-                          else
-                              Toast.makeText(MainActivity.this,""+response,Toast.LENGTH_LONG).show();
-                       }
-                   }));
+                        }
+                    },5000);
+
+                    cd.add(node.studentLogin(roll,pass)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Consumer<String>() {
+                                @Override
+                                public void accept(String response) throws Exception {
+                                    String res= response;
+                                    if(res.equals("Success"))
+                                    {
+                                        spedit.putString("Username", roll);
+                                        spedit.putString("Password", pass);
+
+                                        spedit.commit();
+
+                                        startActivity(new Intent(MainActivity.this, CardView.class));
+                                    }
+                                    else
+                                        Toast.makeText(MainActivity.this,""+response,Toast.LENGTH_LONG).show();
+                                }
+                            }));
 
                 }
 
@@ -145,6 +159,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,PasswordForgot.class));
+                rollno.setText("");
+                password.setText("") ;
+            }
+        });
 
     }
 

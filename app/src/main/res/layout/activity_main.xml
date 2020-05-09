@@ -58,13 +58,27 @@
         android:inputType="textPassword"
         android:id="@+id/password"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Forgot Password ?"
+        android:id="@+id/forgotPasswordTxt"
+        android:layout_below="@+id/password"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/login"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/audiowide"
-        android:layout_below="@id/password"
+        android:layout_below="@id/forgotPasswordTxt"
         android:layout_centerHorizontal="true"
         />
     <TextView
