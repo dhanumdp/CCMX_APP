@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +24,10 @@ import retrofit2.Retrofit;
 public class Registration extends AppCompatActivity {
     EditText name,rollno,password,email,confirm;
     Button register;
+    LoadingDiolog loadingDiolog = new LoadingDiolog(Registration.this);
+
     CompositeDisposable cd = new CompositeDisposable();
+
     NodeJS node;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,11 @@ public class Registration extends AppCompatActivity {
                     email.setError("Please Enter Your Email-Id!!");
                     email.requestFocus();
                 }
+                else if(!Patterns.EMAIL_ADDRESS.matcher(semail).matches())
+                {
+                    email.setError("Invalid Email-Id!!");
+                    email.requestFocus();
+                }
                 else if (spassword.isEmpty())
                 {
                     password.setError("Please Enter Your Password !!");
@@ -86,7 +96,17 @@ public class Registration extends AppCompatActivity {
                 else
                 {
 
-                    cd.add(node.studentRegister(sname,srollno,semail,sconfirm)
+
+                    loadingDiolog.startLoadingDiolog();
+                    Handler handler= new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDiolog.dismissDiolog();
+                        }
+                    },2000);
+
+                             cd.add(node.studentRegister(sname,srollno,semail,sconfirm)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Consumer<String>() {
@@ -95,7 +115,7 @@ public class Registration extends AppCompatActivity {
                                     Toast.makeText(Registration.this,""+response,Toast.LENGTH_LONG).show();
                                 }
                             }));
-                    startActivity(new Intent(Registration.this,MainActivity.class));
+                            startActivity(new Intent(Registration.this,MainActivity.class));
 
 
 

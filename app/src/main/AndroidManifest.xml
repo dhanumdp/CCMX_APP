@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/mxcc"
         android:label="@string/app_name"
+
         android:roundIcon="@mipmap/mxcc_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:text=""
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:id="@+id/complaintDate"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/audiowide"
@@ -21,10 +21,11 @@
         android:layout_height="250dp"
         android:layout_below="@id/complaintDate"
         android:id="@+id/complaintCard"
+        app:cardElevation="10dp"
         app:cardBackgroundColor="@color/Transparent"
-        app:cardCornerRadius="20dp"
-        app:cardUseCompatPadding="true"
         android:layout_marginTop="10dp"
+        app:cardCornerRadius="15dp"
+        app:cardUseCompatPadding="true"
         >
 
         <RelativeLayout
@@ -34,38 +35,34 @@
 
 
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="280dp"
                 android:layout_marginTop="30dp"
                 android:layout_height="wrap_content"
-
                 android:id="@+id/systemNoEdit"
-                android:layout_marginStart="50dp"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/audiowide"
                 android:textSize="20dp"
                 android:textColor="#fff"
-
+                android:textColorHint="#fff"
                 android:layout_marginBottom="10dp"
-                android:hint="System No : "
-
+                android:hint="System No"
                 />
-
-
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/audiowide"
                 android:textSize="20dp"
-                android:layout_marginStart="50dp"
+                android:layout_centerHorizontal="true"
                 android:textColor="#fff"
                 android:id="@+id/complaintTextEdit"
                 android:layout_marginBottom="10dp"
                 android:inputType="textMultiLine"
                 android:maxLines="3"
+                android:textColorHint="#fff"
                 android:minLines="1"
-                android:scrollbars="vertical"
                 android:layout_below="@id/systemNoEdit"
-                android:hint="Complaint : "
+                android:hint="Complaint  "
                 />
         </RelativeLayout>
 

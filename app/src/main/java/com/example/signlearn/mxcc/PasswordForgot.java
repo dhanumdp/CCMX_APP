@@ -70,6 +70,7 @@ public class PasswordForgot extends AppCompatActivity {
     {
 
 
+
         getCode.setOnClickListener(new View.OnClickListener() {
 
 
@@ -152,18 +153,18 @@ public class PasswordForgot extends AppCompatActivity {
 
 
 
-
-                    loadingDiolog.startLoadingDiolog();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            loadingDiolog.dismissDiolog();
-
-                        }
-                    }, 1000);
-
                     if (receivedCode.equals(typedCode)) {
+                        loadingDiolog.startLoadingDiolog();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadingDiolog.dismissDiolog();
+
+                            }
+                        }, 1000);
+
+
                         code.setEnabled(false);
 
                         Toast.makeText(PasswordForgot.this, "Code Matched. Enter Your New Password", Toast.LENGTH_LONG).show();

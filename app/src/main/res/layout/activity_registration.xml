@@ -78,8 +78,10 @@
         android:fontFamily="@font/audiowide"
         android:layout_marginTop="5dp"
         android:hint="Email-Id"
+        android:scrollbars="horizontal"
         android:layout_below="@id/RollNo"
-        android:inputType="text" />
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:layout_width="250dp"

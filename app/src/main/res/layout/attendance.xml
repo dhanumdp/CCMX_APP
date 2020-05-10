@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/attendanceLayout"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -13,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:text=""
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:id="@+id/attendanceDate"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/audiowide"
@@ -25,14 +28,16 @@
         android:layout_height="250dp"
         android:id="@+id/attendanceCard"
         app:cardBackgroundColor="@color/Transparent"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        android:layout_marginTop="10dp"
         app:cardUseCompatPadding="true"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:gravity="fill_horizontal"
             >
 
         <TextView
@@ -41,7 +46,7 @@
             android:layout_height="wrap_content"
             android:textColor="#fff"
             android:layout_marginTop="65dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:fontFamily="@font/audiowide"
             android:text="Check In     :"
             android:textSize="20dp" />
@@ -64,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:layout_below="@id/checkin"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/audiowide"
                 android:text="Check Out  :"
@@ -111,3 +116,5 @@
 
 
 </RelativeLayout>
+
+
