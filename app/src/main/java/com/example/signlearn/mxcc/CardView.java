@@ -1,6 +1,7 @@
 package com.example.signlearn.mxcc;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +15,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,6 +37,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,7 +50,7 @@ import retrofit2.Retrofit;
 public class CardView extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    private Timer timer;
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     DateFormat timeFormat = new SimpleDateFormat("HH:mm aa" );
     Date date = new Date();
@@ -53,6 +59,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     SharedPreferences sp;
     SharedPreferences.Editor spedit;
     View header;
+    LoadingDiolog loadingDiolog = new LoadingDiolog(CardView.this);
         DrawerLayout drawerLayout;
         ActionBarDrawerToggle actionBarDrawerToggle;
         Toolbar toolbar;
@@ -104,9 +111,8 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         node = retrofitClient.create(NodeJS.class);
 
 
-
-
         loadUser();
+        //checkConnectivity();
 
 
     }
@@ -118,7 +124,17 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         this.moveTaskToBack(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //checkConnectivity();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+       // checkConnectivity();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -230,31 +246,78 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
                 }));
     }
 
+//    public void checkConnectivity()
+//    {
+//        if(Settings.Secure.getInt(getApplicationContext().getContentResolver(),"mobile_data",0) == 1)
+//        {
+//            Toast.makeText(CardView.this, "Connected", Toast.LENGTH_SHORT).show();
+//        }
+//        else
+//        {
+//
+//            Toast.makeText(CardView.this, "Turn On Your Mobile Data", Toast.LENGTH_SHORT).show();
+//            loadingDiolog.startLoadingDiolog();
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//                @Override
+//                public void run() {
+//                    loadingDiolog.dismissDiolog();
+//                    LogOutTimerTask logoutTimeTask = new LogOutTimerTask();
+//                    logoutTimeTask.run();
+//                }
+//            },2000);
+//        }
+
+//        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        if(wifiManager.isWifiEnabled())
+//        {
+//            WifiInfo info = wifiManager.getConnectionInfo();
+//            String ssid = info.getSSID();
+//            if(ssid.equals("Dhanu"))
+//            {
+//                rollno.setEnabled(false);
+//                password.setEnabled(false);
+//                login.setEnabled(false);
+//                Toast.makeText(MainActivity.this, "You are Connected to our Dept Wifi. Please Connect it and Restart the App", Toast.LENGTH_LONG).show();
+//            }
+//            else
+//            {
+//                rollno.setEnabled(true);
+//                password.setEnabled(true);
+//                login.setEnabled(true);
+//                Toast.makeText(MainActivity.this, "Connected to "+ssid, Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }
+//        else
+//        {
+//            Toast.makeText(MainActivity.this, "Turn On your Wifi", Toast.LENGTH_SHORT).show();
+//        }//  }
 
 
-//    public void listner()
-//{
-//    logout.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            startActivity(new Intent(CardView.this, MainActivity.class));
-//        }
-//    });
-//
-//
-//
-//    print.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//
-//            String username = sp.getString("Username", null);
-//            String pass = sp.getString("Password", null);
-//
-//            Toast.makeText(CardView.this,"Username :"+username+" Password : "+pass+". Date : "+formatedDate+" Time : "+formagedTime+".", Toast.LENGTH_LONG).show();
-//
-//
-//
-//        }
-//    });
-//}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timer = new Timer();
+        Log.i("Main", "Invoking logout timer");
+        LogOutTimerTask logoutTimeTask = new LogOutTimerTask();
+        timer.schedule(logoutTimeTask,3600000);
+    }
+    private class LogOutTimerTask extends TimerTask {
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void run() {
+            spedit.clear();
+            spedit.commit();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAndRemoveTask();
+            }
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
+    }
 }

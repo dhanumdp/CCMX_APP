@@ -25,9 +25,7 @@ public class Registration extends AppCompatActivity {
     EditText name,rollno,password,email,confirm;
     Button register;
     LoadingDiolog loadingDiolog = new LoadingDiolog(Registration.this);
-
     CompositeDisposable cd = new CompositeDisposable();
-
     NodeJS node;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,26 +94,30 @@ public class Registration extends AppCompatActivity {
                 else
                 {
 
-
-                    loadingDiolog.startLoadingDiolog();
-                    Handler handler= new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            loadingDiolog.dismissDiolog();
-                        }
-                    },2000);
-
                              cd.add(node.studentRegister(sname,srollno,semail,sconfirm)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Consumer<String>() {
                                 @Override
-                                public void accept(String response) throws Exception {
-                                    Toast.makeText(Registration.this,""+response,Toast.LENGTH_LONG).show();
+                                public void accept(final String response) throws Exception {
+                                    loadingDiolog.startLoadingDiolog();
+                                    Handler handler= new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            loadingDiolog.dismissDiolog();
+                                            Toast.makeText(Registration.this,""+response,Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(Registration.this,MainActivity.class));
+
+                                        }
+                                    },2000);
+
+
+
                                 }
                             }));
-                            startActivity(new Intent(Registration.this,MainActivity.class));
+
 
 
 

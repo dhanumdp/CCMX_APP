@@ -3,6 +3,7 @@ package com.example.signlearn.mxcc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,9 +91,12 @@ public class PasswordForgot extends AppCompatActivity {
                     mail.setError("This Field is Required");
                     mail.requestFocus();
                 }
+                else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                {
+                    mail.setError("Invalid Email-Id!!");
+                    mail.requestFocus();
+                }
                 else {
-
-
 
                     loadingDiolog.startLoadingDiolog();
                     Handler handler = new Handler();
@@ -100,7 +104,6 @@ public class PasswordForgot extends AppCompatActivity {
                         @Override
                         public void run() {
                             loadingDiolog.dismissDiolog();
-
                         }
                     }, 2000);
 
@@ -110,21 +113,19 @@ public class PasswordForgot extends AppCompatActivity {
                             .subscribe(new Consumer<String>() {
                                 @Override
                                 public void accept(String response) throws Exception {
-
-
                                     JSONObject data = new JSONObject(response);
-
-
-
                                     if (data.getString("success") == "true") {
+
                                         rollno.setEnabled(false);
                                         mail.setEnabled(false);
+                                        String Codemessage = data.getString("message");
+                                        Toast.makeText(PasswordForgot.this, "" + Codemessage, Toast.LENGTH_LONG).show();
                                         getCode.setVisibility(View.INVISIBLE);
                                         code.setVisibility(View.VISIBLE);
                                         verify.setVisibility(View.VISIBLE);
                                         receivedCode = data.getString("code");
-                                        String Codemessage = data.getString("message");
-                                        Toast.makeText(PasswordForgot.this, "" + Codemessage, Toast.LENGTH_LONG).show();
+
+
                                     } else {
 
                                         String ErrorMessage = data.getString("message");
@@ -154,25 +155,24 @@ public class PasswordForgot extends AppCompatActivity {
 
 
                     if (receivedCode.equals(typedCode)) {
+
                         loadingDiolog.startLoadingDiolog();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 loadingDiolog.dismissDiolog();
-
+                                Toast.makeText(PasswordForgot.this, "Code Matched. Enter Your New Password", Toast.LENGTH_LONG).show();
+                                code.setEnabled(false);
+                                verify.setVisibility(View.INVISIBLE);
+                                password.setVisibility(View.VISIBLE);
+                                confirm.setVisibility(View.VISIBLE);
+                                submit.setVisibility(View.VISIBLE);
                             }
-                        }, 1000);
+                        }, 2000);
 
 
-                        code.setEnabled(false);
 
-                        Toast.makeText(PasswordForgot.this, "Code Matched. Enter Your New Password", Toast.LENGTH_LONG).show();
-
-                        verify.setVisibility(View.INVISIBLE);
-                        password.setVisibility(View.VISIBLE);
-                        confirm.setVisibility(View.VISIBLE);
-                        submit.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(PasswordForgot.this, "Code Mismatched", Toast.LENGTH_LONG).show();
                     }
@@ -208,24 +208,31 @@ public class PasswordForgot extends AppCompatActivity {
                     {
                         password.setEnabled(false);
                         confirm.setEnabled(false);
-                            cd.add(node.changePassword(rollno.getText().toString(),mail.getText().toString(),cfm)
+                        String userRoll = rollno.getText().toString().toUpperCase();
+                            cd.add(node.changePassword(userRoll,cfm)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Consumer<String>() {
                                     @Override
                                     public void accept(String response) throws Exception {
-
                                         JSONObject data = new JSONObject(response);
-                                        if(data.getString("success")=="true")
+                                        if(data.getString("success").equals("true"))
                                         {
 
-                                           startActivity(new Intent(PasswordForgot.this, MainActivity.class));
-                                            Toast.makeText(PasswordForgot.this,""+data.getString("message"),Toast.LENGTH_LONG).show();
+                                            Toast.makeText(PasswordForgot.this,""+data.getString("message"),Toast.LENGTH_SHORT).show();
+                                            loadingDiolog.startLoadingDiolog();
+                                            Handler handler= new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    loadingDiolog.dismissDiolog();
+                                                    startActivity(new Intent(PasswordForgot.this, MainActivity.class));
+                                                }
+                                            },2000);
+
                                         }
                                         else
                                         {
-
-
                                             Toast.makeText(PasswordForgot.this,""+data.getString("message"),Toast.LENGTH_LONG).show();
                                         }
 
@@ -237,7 +244,7 @@ public class PasswordForgot extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(PasswordForgot.this, "Passwords Mismatched", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PasswordForgot.this, "Passwords Mismatched", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -253,7 +260,6 @@ public class PasswordForgot extends AppCompatActivity {
     public void onBackPressed() {
 
         super.onBackPressed();
-
         rollno.setText("");
         password.setText("");
         getCode.setVisibility(View.VISIBLE);
