@@ -122,7 +122,10 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
     {
 
         this.moveTaskToBack(true);
+
     }
+
+
 
     @Override
     protected void onResume() {
@@ -193,6 +196,15 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
                     loadingDiolog.dismissDiolog();
                 }
             },1000);
+            setTitle(item.getTitle().toString().toUpperCase());
+        }
+        if(item.getItemId()== R.id.changePassword)
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            fragmentManager= getSupportFragmentManager();
+            fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new ChangePassword());
+            fragmentTransaction.commit();
             setTitle(item.getTitle().toString().toUpperCase());
         }
 
@@ -302,7 +314,7 @@ public class CardView extends AppCompatActivity implements NavigationView.OnNavi
         timer = new Timer();
         Log.i("Main", "Invoking logout timer");
         LogOutTimerTask logoutTimeTask = new LogOutTimerTask();
-        timer.schedule(logoutTimeTask,3600000);
+        timer.schedule(logoutTimeTask,300000);
     }
     private class LogOutTimerTask extends TimerTask {
 

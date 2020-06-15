@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     TextView register,forgot;
     EditText rollno,password;
     Button login;
-    CompositeDisposable cd = new CompositeDisposable();
+
     LoadingDiolog loadingDiolog = new LoadingDiolog(MainActivity.this);
+    CompositeDisposable cd = new CompositeDisposable();
     NodeJS node;
 
 
@@ -106,31 +107,31 @@ public class MainActivity extends AppCompatActivity {
 //            Toast.makeText(MainActivity.this, "Please Turn On Your Mobile Data", Toast.LENGTH_SHORT).show();
 //        }
 
-        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if(wifiManager.isWifiEnabled())
-        {
-            WifiInfo info = wifiManager.getConnectionInfo();
-            String ssid = info.getSSID();
-          //  if(ssid.equals("Dhanu"))
-            //{
-              //  rollno.setEnabled(false);
-                //password.setEnabled(false);
-                //login.setEnabled(false);
-                //Toast.makeText(MainActivity.this, "You are Connected to our Dept Wifi. Please Connect it and Restart the App", Toast.LENGTH_LONG).show();
-            //}
-            //else
-            //{
-              //  rollno.setEnabled(true);
-                //password.setEnabled(true);
-                //login.setEnabled(true);
-                Toast.makeText(MainActivity.this, "Connected to "+ssid, Toast.LENGTH_SHORT).show();
-            //}
-
-        }
-        else
-        {
-            Toast.makeText(MainActivity.this, "Please Turn On your Wifi and Restart the App", Toast.LENGTH_LONG).show();
-        }
+//        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        if(wifiManager.isWifiEnabled())
+//        {
+//            WifiInfo info = wifiManager.getConnectionInfo();
+//            String ssid = info.getSSID();
+//          //  if(ssid.equals("Dhanu"))
+//            //{
+//              //  rollno.setEnabled(false);
+//                //password.setEnabled(false);
+//                //login.setEnabled(false);
+//                //Toast.makeText(MainActivity.this, "You are Connected to our Dept Wifi. Please Connect it and Restart the App", Toast.LENGTH_LONG).show();
+//            //}
+//            //else
+//            //{
+//              //  rollno.setEnabled(true);
+//                //password.setEnabled(true);
+//                //login.setEnabled(true);
+//                Toast.makeText(MainActivity.this, "Connected to "+ssid, Toast.LENGTH_SHORT).show();
+//            //}
+//
+//        }
+//        else
+//        {
+//            Toast.makeText(MainActivity.this, "Please Turn On your Wifi and Restart the App", Toast.LENGTH_LONG).show();
+//        }
     }
     public void listener()
     {
@@ -210,17 +211,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        checkConnectivity();
-        rollno.setText("");
-        password.setText("");
-    }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        checkConnectivity();
+//
+//    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        rollno.setText("");
+        password.setText("");
         checkConnectivity();
     }
 }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.signlearn.mxcc.Retrofit.NodeJS;
 import com.example.signlearn.mxcc.Retrofit.RetrofitClient;
 
+import org.json.JSONObject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -100,18 +102,28 @@ public class Registration extends AppCompatActivity {
                             .subscribe(new Consumer<String>() {
                                 @Override
                                 public void accept(final String response) throws Exception {
-                                    loadingDiolog.startLoadingDiolog();
-                                    Handler handler= new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
+                                     final JSONObject data = new JSONObject(response);
+                                     final String message = data.getString("message");
+                                    if(data.getString("success").equals("true"))
+                                    {
+                                        loadingDiolog.startLoadingDiolog();
+                                        Handler handler= new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
 
-                                            loadingDiolog.dismissDiolog();
-                                            Toast.makeText(Registration.this,""+response,Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(Registration.this,MainActivity.class));
+                                                loadingDiolog.dismissDiolog();
+                                                Toast.makeText(Registration.this, ""+message, Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(Registration.this,MainActivity.class));
 
-                                        }
-                                    },2000);
+                                            }
+                                        },2000);
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(Registration.this, ""+message, Toast.LENGTH_SHORT).show();
+                                    }
+
 
 
 

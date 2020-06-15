@@ -44,5 +44,9 @@ public interface NodeJS {
     @FormUrlEncoded
     Observable<String> changePassword(@Field("rollno")String rollno, @Field("password") String password);
 
+    @POST("/student/changePassword")
+    @FormUrlEncoded
+    Observable<String> newPassword(@Field("rollno")String rollno, @Field("password") String password);
+
 
 }

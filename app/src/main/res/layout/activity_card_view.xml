@@ -35,23 +35,6 @@
 
 
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/logout"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:text="LogOut"-->
-<!--        />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/print"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/logout"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="300dp"-->
-<!--        android:text="Print" />-->
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
